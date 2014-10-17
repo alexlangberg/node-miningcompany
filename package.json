@@ -1,0 +1,38 @@
+{
+  "name": "node-miningcompany",
+  "version": "0.0.0",
+  "description": "Text mining.",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexlangberg/node-miningcompany.git"
+  },
+  "keywords": [
+    "text",
+    "mining"
+  ],
+  "author": "Alex Langberg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexlangberg/node-miningcompany/issues"
+  },
+  "homepage": "https://github.com/alexlangberg/node-miningcompany",
+  "devDependencies": {
+    "chai": "^1.9.2",
+    "chai-things": "^0.2.0",
+    "coveralls": "^2.11.2",
+    "gulp": "^3.8.8",
+    "gulp-batch": "^1.0.1",
+    "gulp-coveralls": "^0.1.3",
+    "gulp-istanbul": "^0.3.1",
+    "gulp-jshint": "^1.8.5",
+    "gulp-mocha": "^1.1.1",
+    "gulp-spawn-mocha": "^0.4.1",
+    "istanbul": "^0.3.2",
+    "jshint-stylish": "^1.0.0",
+    "mocha": "^1.21.5"
+  }
+}
