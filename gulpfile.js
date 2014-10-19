@@ -8,7 +8,7 @@ var batch = require('gulp-batch');
 var jsPaths = ['*.js', 'lib/**/*.js', 'test/**/*.js'];
 
 var test = function(cb) {
-  return gulp.src(['lib/**/*.js', 'index.js'])
+  return gulp.src(['lib/**/*.js'])
     .pipe(istanbul())
     .on('finish', function () {
       gulp.src(['test/*.js'])
@@ -20,8 +20,7 @@ var test = function(cb) {
 var lint = function() {
   return gulp.src(jsPaths)
     .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jshint.reporter('fail'));
+    .pipe(jshint.reporter('jshint-stylish'));
 };
 
 gulp.task('default', ['lint', 'test']);

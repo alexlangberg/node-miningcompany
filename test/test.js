@@ -4,11 +4,19 @@
 var chai = require('chai');
     chai.use(require('chai-things'));
 var should = chai.should();
-var add = require('../index.js');
+var miningcompany = require('../lib/miningcompany.js');
 
-describe('add', function() {
-  it('adds numbers correctly', function(){
-    var result = add(1,2);
-    result.should.equal(3);
+describe('miningcompany', function() {
+  it('it can fetch an url', function(done){
+    var destinations = [
+      {
+        url: 'http://www.b.dk',
+        targets: 'h1'
+      }
+    ];
+    miningcompany(destinations, {}, function(response) {
+      console.log(response.results[0].nuggets);
+      done();
+    });
   });
 });
