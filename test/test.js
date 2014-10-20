@@ -7,15 +7,17 @@ var should = chai.should();
 var miningcompany = require('../lib/miningcompany.js');
 
 describe('miningcompany', function() {
+  this.timeout(10000);
   it('it can fetch an url', function(done){
     var destinations = [
       {
-        url: 'http://www.b.dk',
-        targets: 'h1'
+        url: 'http://www.pol.dk',
+        targets: 'h2'
       }
     ];
-    miningcompany(destinations, {}, function(response) {
-      console.log(response.results[0].nuggets);
+    miningcompany(destinations, { forceUTF8: true, goldwasher: true }, function(response) {
+      console.log(response);
+      //console.log(response.results[0].nuggets);
       done();
     });
   });

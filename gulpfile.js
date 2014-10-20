@@ -5,6 +5,7 @@ var istanbul = require('gulp-istanbul');
 var coveralls = require('gulp-coveralls');
 var mocha = require('gulp-spawn-mocha');
 var batch = require('gulp-batch');
+var betterConsole = require('better-console');
 var jsPaths = ['*.js', 'lib/**/*.js', 'test/**/*.js'];
 
 var test = function(cb) {
@@ -23,12 +24,17 @@ var lint = function() {
     .pipe(jshint.reporter('jshint-stylish'));
 };
 
+var clear = function() {
+  betterConsole.clear();
+};
+
 gulp.task('default', ['lint', 'test']);
 
 gulp.task('ci', ['lint', 'test', 'coveralls']);
 
 gulp.task('watch', function () {
   gulp.watch(jsPaths, batch(function (events, cb) {
+    clear();
     lint();
     test(function() { cb(); });
   }));
