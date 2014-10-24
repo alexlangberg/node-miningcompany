@@ -39,6 +39,8 @@
   "dependencies": {
     "goldwasher": "^0.1.2",
     "krawler": "^0.3.3",
+    "node-schedule": "^0.1.13",
+    "q": "^1.0.1",
     "underscore": "^1.7.0"
   }
 }
