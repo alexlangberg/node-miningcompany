@@ -40,7 +40,7 @@ company
     console.log('wash!');
   })
   .on('cart', function (cart) {
-    //console.log('cart!', cart);
+    console.log('cart!', cart);
   })
   .on('shut', function () {
     console.log('shut!');
@@ -51,4 +51,4 @@ company
 // shut down after 35 seconds
 setTimeout(function () {
   company.shut();
-}, 180000);
+}, 35000);
