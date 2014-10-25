@@ -7,6 +7,10 @@ var maps = [
   {
     url: 'http://www.reddit.com',
     targets: 'a.title'
+  },
+  {
+    url: 'http://www.sitethatwillobviouslyfail.com',
+    targets: 'h1'
   }
 ];
 
@@ -23,6 +27,9 @@ company
   .on('open', function () {
     console.log('open!');
   })
+  .on('plan', function () {
+    console.log('plan!');
+  })
   .on('trip', function () {
     console.log('trip!');
   })
@@ -33,7 +40,7 @@ company
     console.log('wash!');
   })
   .on('cart', function (cart) {
-    console.log('cart!', cart);
+    //console.log('cart!', cart);
   })
   .on('shut', function () {
     console.log('shut!');
@@ -44,4 +51,4 @@ company
 // shut down after 35 seconds
 setTimeout(function () {
   company.shut();
-}, 35000);
+}, 180000);
