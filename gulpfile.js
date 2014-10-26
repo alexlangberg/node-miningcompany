@@ -6,9 +6,10 @@ var coveralls = require('gulp-coveralls');
 var mocha = require('gulp-spawn-mocha');
 var batch = require('gulp-batch');
 var betterConsole = require('better-console');
+var jsdoc = require('gulp-jsdoc');
 var jsPaths = ['*.js', 'lib/**/*.js', 'test/**/*.js'];
 
-var test = function(cb) {
+var test = function (cb) {
   return gulp.src(['lib/**/*.js'])
     .pipe(istanbul())
     .on('finish', function () {
@@ -18,13 +19,13 @@ var test = function(cb) {
     });
 };
 
-var lint = function() {
+var lint = function () {
   return gulp.src(jsPaths)
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'));
 };
 
-var clear = function() {
+var clear = function () {
   betterConsole.clear();
 };
 
@@ -36,7 +37,9 @@ gulp.task('watch', function () {
   gulp.watch(jsPaths, batch(function (events, cb) {
     clear();
     lint();
-    test(function() { cb(); });
+    test(function () {
+      cb();
+    });
   }));
 });
 
@@ -45,9 +48,16 @@ gulp.task('lint', function () {
 });
 
 gulp.task('test', function (cb) {
-  test(function() { cb(); });
+  test(function () {
+    cb();
+  });
 });
 
 gulp.task('coveralls', ['test'], function () {
   return gulp.src('coverage/lcov.info').pipe(coveralls());
+});
+
+gulp.task('jsdoc', function () {
+  return gulp.src(['lib/miningcompany.js', 'README.md'])
+    .pipe(jsdoc('./docs'));
 });

@@ -18,7 +18,8 @@ var maps = [
 var options = {
   schedule: {
     second: [0, 10, 20, 30, 40, 50]
-  }
+  },
+  goldwasher: true
 };
 
 var company = new Miningcompany(maps, options);
