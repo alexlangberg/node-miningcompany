@@ -9,4 +9,4 @@ node-miningcompany
 [![Dependency Status](https://david-dm.org/alexlangberg/node-miningcompany.svg)](https://david-dm.org/alexlangberg/node-miningcompany)
 [![devDependency Status](https://david-dm.org/alexlangberg/node-miningcompany/dev-status.svg)](https://david-dm.org/alexlangberg/node-miningcompany#info=devDependencies)
 
-Text mining.
+Text mining. Description coming soon. See example.js.
