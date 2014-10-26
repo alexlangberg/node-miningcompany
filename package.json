@@ -41,7 +41,7 @@
     "sinon-chai": "^2.6.0"
   },
   "dependencies": {
-    "goldwasher": "^0.1.2",
+    "goldwasher": "^1.0.0",
     "krawler": "^0.3.3",
     "node-schedule": "^0.1.13",
     "underscore": "^1.7.0"
