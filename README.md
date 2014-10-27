@@ -23,11 +23,11 @@ Everything is built around real mining terminology to give the different functio
 - *gold* - if you choose to enable goldwasher, every cart will have an array of goldwasher results added as a property with this name.
 - *options* - options for miningcompany, krawler and goldwasher.
 
-When you call ```open()``` on the instantiated miningcompany, it will start up a *scheduler*. 
-Every time the *scheduler* reaches a scheduled point in time, it will fire a new *trip*. 
-On every *trip*, all the *maps* will be *mined* and for each, a *cart* of results will be returned. 
-Each *cart* is full of *gold* (and also contains the DOM if you want to target something manually). 
-What you do from here is up to you, for instance you could easily store it directly with MongoDB for later analysis.
+1. When you call ```open()``` on the instantiated miningcompany, it will start up a *scheduler*. 
+2. Every time the *scheduler* reaches a scheduled point in time, it will fire a new *trip*. 
+3. On every *trip*, all the *maps* will be *mined* and for each, a *cart* of results will be returned. 
+4. Each *cart* is full of *gold* (and also contains the DOM if you want to target something manually). 
+5. What you do from here is up to you, for instance you could easily store it directly with MongoDB for later analysis.
 
 As Miningcompany is also an EventEmitter, you can listen for all parts of the cycle and catch the carts. See example below or run the included ```example.js``` to see how it works.
 
@@ -37,11 +37,61 @@ npm install miningcompany
 ```
 
 ## options
-```
 - ```targets``` - jquery/cheerio selection of target tags.
-```
 
 ## Example
 ```javascript
+var Miningcompany = require('./lib/miningcompany.js');
 
+// get headlines from frontpage of reddit
+var maps = [
+  {
+    url: 'http://www.reddit.com',
+    targets: 'a.title'
+  },
+  {
+    url: 'http://www.sitethatwillobviouslyfail.com',
+    targets: 'h1'
+  }
+];
+
+// trip every 10 seconds
+var options = {
+  schedule: {
+    second: [0, 10, 20, 30, 40, 50]
+  },
+  goldwasher: true
+};
+
+var company = new Miningcompany(maps, options);
+
+company
+  .on('open', function () {
+    console.log('open!');
+  })
+  .on('plan', function () {
+    console.log('plan!');
+  })
+  .on('trip', function () {
+    console.log('trip!');
+  })
+  .on('mine', function () {
+    console.log('mine!');
+  })
+  .on('wash', function () {
+    console.log('wash!');
+  })
+  .on('cart', function (cart) {
+    console.log('cart!', cart);
+  })
+  .on('shut', function () {
+    console.log('shut!');
+  })
+  // remember to open the company to start running
+  .open();
+
+// shut down after 35 seconds
+setTimeout(function () {
+  company.shut();
+}, 35000);
 ```
