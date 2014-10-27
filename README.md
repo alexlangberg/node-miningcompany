@@ -16,14 +16,14 @@ The project is built on several other modules:
 - [krawler](https://www.npmjs.org/package/krawler) - the actual scraping is performed by krawler.
 - [goldwasher](https://www.npmjs.org/package/goldwasher) - goldwasher can optionally be used to extract links and meta data.
 
-Everything is built around real mining terminology to give the different functionalities a more comprehensible semantic meanings. This makes it easier to understand what is going on in the module. As such, the most commonly used and important objects are:
+Everything is built around mining terminology. This (hopefully) makes it easier to understand what is going on in the module. As such, the most commonly used and important objects are:
 
-- *maps* - an array of JSON objects that each define at minimum a url to scrape and a target (jQuery selector)
+- *maps* - an array of JSON objects that each define at minimum a url to scrape and a target (jQuery selector) for goldwasher. Additional parameters (such as filters) for goldwasher can be passed in here.
 - *options* - options for miningcompany, krawler and goldwasher.
 - *cart* - a collection of results from scraping one of the maps.
 - *gold* - if you choose to enable goldwasher, every cart will have an array of goldwasher results added as a property with this name.
 
-1. When you call ```open()``` on the instantiated miningcompany, it will start up a *scheduler*. 
+1. When you call ```open()``` on an instantiated miningcompany, it will start up a *scheduler*. 
 2. Every time the *scheduler* reaches a scheduled point in time, it will fire a new *trip*. 
 3. On every *trip*, all the *maps* will be *mined* and for each, a *cart* of results (and eventual errors) will be returned. 
 4. Each *cart* is full of *gold* (and the DOM, in case you want to target something manually with [cheerio](https://www.npmjs.org/package/cheerio). 
@@ -37,7 +37,10 @@ npm install miningcompany
 ```
 
 ## options
-- ```targets``` - jquery/cheerio selection of target tags.
+- ```schedule``` - a pattern node-schedule will accept. The easiest is to use an object literal as in the example. However, you can also pass in a CRON string if you feel like.
+- ```goldwasher``` - Enable or disable goldwasher. Default: true.
+- ```krawler``` - an optional object literal with additional options for krawler. By default, forceUTF8 is set to true. 
+
 
 ## Example
 ```javascript
