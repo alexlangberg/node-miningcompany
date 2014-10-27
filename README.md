@@ -9,7 +9,7 @@ node-miningcompany
 [![Dependency Status](https://david-dm.org/alexlangberg/node-miningcompany.svg)](https://david-dm.org/alexlangberg/node-miningcompany)
 [![devDependency Status](https://david-dm.org/alexlangberg/node-miningcompany/dev-status.svg)](https://david-dm.org/alexlangberg/node-miningcompany#info=devDependencies)
 
-Miningcompany is a tool for gathering scraping and mining text from websites at defined intervals. For instance, imagine you wanted to get all headlines from a news site. Not only that but you want them to be collected automatically each hour - but on weekdays only. You also want their related links and a collection of metadata about the headline. Miningcompany is built for this kind of purpose.
+Miningcompany is a tool for gathering scraping and mining text/links from websites at defined points in time. For instance, imagine you wanted to get all headlines from a news site. Not only that but you want them to be collected automatically each hour - but on weekdays only. You also want their related links and a collection of metadata about the headline. Miningcompany is built for this kind of purpose.
 
 The project is built on several other modules:
 - [node-schedule](https://www.npmjs.org/package/node-schedule) - used to schedule when the scraper should run.
