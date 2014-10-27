@@ -86,7 +86,7 @@ describe('Miningcompany', function () {
   });
 
   it('returns a cart after mining with mine()', function () {
-    var company = new Miningcompany(maps);
+    var company = new Miningcompany(maps, {goldwasher: false});
     company.emit = sinon.spy();
 
     // we inject a Krawler with an hijacked queue() function
