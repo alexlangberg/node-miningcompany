@@ -29,7 +29,7 @@ Everything is built around mining terminology. This (hopefully) makes it easier 
 4. Each *cart* is full of *gold* (and the DOM, in case you want to target something manually with [cheerio](https://www.npmjs.org/package/cheerio). 
 5. What you do from here is up to you, for instance you could easily store it directly with [MongoDB](https://www.npmjs.org/package/mongodb) for later analysis.
 
-As Miningcompany is also an EventEmitter, you can listen for all parts of the cycle and catch the carts. See example below or run the included ```example.js``` to see how it works.
+As Miningcompany is an EventEmitter, you can listen for all parts of the cycle and catch the carts. See example below or run the included ```example.js``` to see how it works.
 
 ## Installation
 ```
@@ -38,8 +38,8 @@ npm install miningcompany
 
 ## options
 - ```schedule``` - a pattern node-schedule will accept. The easiest is to use an object literal as in the example. However, you can also pass in a CRON string if you feel like.
-- ```goldwasher``` - Enable or disable goldwasher. Default: true.
-- ```krawler``` - an optional object literal with additional options for krawler. By default, forceUTF8 is set to true. 
+- ```goldwasher``` - Enable or disable goldwasher. Default: *true*.
+- ```krawler``` - an optional object literal with additional options for krawler. By default, ```forceUTF8``` is set to *true*. 
 
 
 ## Example
