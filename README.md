@@ -19,15 +19,15 @@ The project is built on several other modules:
 Everything is built around real mining terminology to give the different functionalities a more comprehensible semantic meanings. This makes it easier to understand what is going on in the module. As such, the most commonly used and important objects are:
 
 - *maps* - an array of JSON objects that each define at minimum a url to scrape and a target (jQuery selector)
+- *options* - options for miningcompany, krawler and goldwasher.
 - *cart* - a collection of results from scraping one of the maps.
 - *gold* - if you choose to enable goldwasher, every cart will have an array of goldwasher results added as a property with this name.
-- *options* - options for miningcompany, krawler and goldwasher.
 
 1. When you call ```open()``` on the instantiated miningcompany, it will start up a *scheduler*. 
 2. Every time the *scheduler* reaches a scheduled point in time, it will fire a new *trip*. 
-3. On every *trip*, all the *maps* will be *mined* and for each, a *cart* of results will be returned. 
-4. Each *cart* is full of *gold* (and also contains the DOM if you want to target something manually). 
-5. What you do from here is up to you, for instance you could easily store it directly with MongoDB for later analysis.
+3. On every *trip*, all the *maps* will be *mined* and for each, a *cart* of results (and eventual errors) will be returned. 
+4. Each *cart* is full of *gold* (and the DOM, in case you want to target something manually with [cheerio](https://www.npmjs.org/package/cheerio). 
+5. What you do from here is up to you, for instance you could easily store it directly with [MongoDB](https://www.npmjs.org/package/mongodb) for later analysis.
 
 As Miningcompany is also an EventEmitter, you can listen for all parts of the cycle and catch the carts. See example below or run the included ```example.js``` to see how it works.
 
