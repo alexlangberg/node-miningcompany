@@ -129,7 +129,10 @@ describe('Miningcompany', function () {
         gold: [{
           timestamp: 61000,
           text: 'Hello world!',
-          keywords: {hello: 1, world: 1},
+          keywords: [
+            {word: 'hello', count: 1},
+            {word: 'world:', count: 1}
+          ],
           href: null,
           tag: 'h1',
           index: 0
