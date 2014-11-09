@@ -131,13 +131,14 @@ describe('Miningcompany', function () {
           text: 'Hello world!',
           keywords: [
             {word: 'hello', count: 1},
-            {word: 'world:', count: 1}
+            {word: 'world', count: 1}
           ],
           href: null,
           tag: 'h1',
           position: 0
         }]
       }],
+      errors: [],
       finished: 61000
     };
 
