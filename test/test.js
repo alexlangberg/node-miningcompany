@@ -135,7 +135,7 @@ describe('Miningcompany', function () {
           ],
           href: null,
           tag: 'h1',
-          index: 0
+          position: 0
         }]
       }],
       finished: 61000
