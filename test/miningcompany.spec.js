@@ -9,7 +9,6 @@ chai.use(require('sinon-chai'));
 var should = chai.should();
 var sinon = require('sinon');
 var Miningcompany = require('../lib/miningcompany.js');
-var Krawler = require('krawler');
 var clock;
 var maps = [
   {
@@ -27,7 +26,7 @@ after(function() {
 });
 
 describe('Miningcompany', function() {
-  //this.timeout(10000);
+
   it('can be constructed', function() {
     new Miningcompany(maps);
   });
@@ -60,6 +59,11 @@ describe('Miningcompany', function() {
     company._options.should.have.property('krawler');
   });
 
+  it('instantiates a Krawler', function() {
+    var company = new Miningcompany(maps);
+    company.should.have.property('_krawler');
+  });
+
   it('makes itself an EventEmitter', function() {
     var company = new Miningcompany(maps);
     company.should.have.property('_events');
@@ -88,34 +92,29 @@ describe('Miningcompany', function() {
 
   it('returns a cart after mining with mine()', function() {
     var company = new Miningcompany(maps);
+
     company.emit = sinon.spy();
 
-    // we inject a Krawler with an hijacked queue() function
-    var miner = new Krawler(company._options.krawler);
-    miner.queue = function() {
-      miner.emit('data', 'cheerioDomStub', 'mapStub', 200);
-      miner.emit('error', 'errorStub', 'mapStub');
-      miner.emit('end');
-    };
+    sinon.stub(company._krawler, 'queue', function() {
+      company._krawler.emit('data', 'cheerioDomStub', 'mapStub', 200);
+      company._krawler.emit('error', 'errorStub', 'mapStub');
+      company._krawler.emit('end');
+    });
 
-    company.mine(miner, maps, company._options);
+    company.mine(maps, company._options);
 
-    var fakeCart = {
-      started: 61000,
-      results: [{
-        map: 'mapStub',
-        dom: 'cheerioDomStub',
-        response: 200
-      }],
-      errors: [{
-        map: 'mapStub',
-        error: 'errorStub'
-      }],
-      finished: 61000
-    };
-
-    company.emit.should.have.been.calledWith('mine');
-    company.emit.should.have.been.calledWith('cart', sinon.match(fakeCart));
+    company.emit.should.have.been
+      .calledWith('mine');
+    company.emit.should.have.been
+      .calledWith('cart', sinon.match.has('uuid'));
+    company.emit.should.have.been
+      .calledWith('cart', sinon.match.has('started'));
+    company.emit.should.have.been
+      .calledWith('cart', sinon.match.has('finished'));
+    company.emit.should.have.been
+      .calledWith('cart', sinon.match.has('results'));
+    company.emit.should.have.been
+      .calledWith('cart', sinon.match.has('errors'));
   });
 
   it('can shut down with shut()', function() {
