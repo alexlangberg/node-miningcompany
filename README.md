@@ -90,15 +90,13 @@ setTimeout(function () {
 ```javascript
 var Miningcompany = require('./lib/miningcompany.js');
 
-// get headlines from frontpage of cnn
+// get headlines from frontpage of CNN
 var maps = [
   {
-    url: 'http://www.cnn.com',
-    targets: 'h3'
+    url: 'http://www.cnn.com'
   },
   {
-    url: 'http://www.sitethatwillobviouslyfail.com',
-    targets: 'h1'
+    url: 'http://www.sitethatwillobviouslyfail.com'
   }
 ];
 
