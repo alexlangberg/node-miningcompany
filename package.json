@@ -1,6 +1,6 @@
 {
   "name": "miningcompany",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Text mining.",
   "main": "./lib/miningcompany",
   "scripts": {
