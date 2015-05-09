@@ -8,8 +8,9 @@ chai.use(require('chai-things'));
 chai.use(require('sinon-chai'));
 var should = chai.should();
 var sinon = require('sinon');
-var Miningcompany = require('../lib/miningcompany.js');
 var cheerio = require('cheerio');
+var Miningcompany = require('../lib/miningcompany.js');
+var Krawler = require('krawler');
 var clock;
 var maps = [
   {
@@ -60,11 +61,6 @@ describe('Miningcompany', function() {
     company._options.should.have.property('krawler');
   });
 
-  it('instantiates a Krawler', function() {
-    var company = new Miningcompany(maps);
-    company.should.have.property('_krawler');
-  });
-
   it('makes itself an EventEmitter', function() {
     var company = new Miningcompany(maps);
     company.should.have.property('_events');
@@ -93,16 +89,17 @@ describe('Miningcompany', function() {
 
   it('returns a cart after mining with mine()', function() {
     var company = new Miningcompany(maps);
+    var miner = new Krawler(company._options.krawler);
 
     company.emit = sinon.spy();
 
-    sinon.stub(company._krawler, 'queue', function() {
-      company._krawler.emit('data', 'cheerioDomStub', 'mapStub', 200);
-      company._krawler.emit('error', 'errorStub', 'mapStub');
-      company._krawler.emit('end');
+    sinon.stub(miner, 'queue', function() {
+      miner.emit('data', 'cheerioDomStub', 'mapStub', 200);
+      miner.emit('error', 'errorStub', 'mapStub');
+      miner.emit('end');
     });
 
-    company.mine(maps, company._options);
+    company.mine(miner, maps, company._options);
 
     company.emit.should.have.been
       .calledWith('mine');
