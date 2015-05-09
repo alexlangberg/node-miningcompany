@@ -9,7 +9,7 @@ node-miningcompany
 [![Dependency Status](https://david-dm.org/alexlangberg/node-miningcompany.svg)](https://david-dm.org/alexlangberg/node-miningcompany)
 [![devDependency Status](https://david-dm.org/alexlangberg/node-miningcompany/dev-status.svg)](https://david-dm.org/alexlangberg/node-miningcompany#info=devDependencies)
 
-Note: version 1.0 no longer includes goldwasher. Use the string and validator module to easily replicate this functionality if needed. See advanced example.
+**Note**: version 1.0.0 no longer includes goldwasher. Use the string and validator module to easily replicate this functionality if needed. See advanced example.
 
 Miningcompany is a tool for gathering scraping and mining text/links from websites at defined points in time. For instance, imagine you wanted to get all headlines from a news site. Not only that but you want them to be collected automatically each hour - but on weekdays only. You also want their related links and a collection of metadata about the headline. Miningcompany is built for this kind of purpose and also includes recommended string and validator tools to work with the results. 
 
@@ -49,14 +49,8 @@ var Miningcompany = require('./lib/miningcompany.js');
 
 // get headlines from frontpage of reddit
 var maps = [
-  {
-    url: 'http://www.reddit.com',
-    targets: 'a.title'
-  },
-  {
-    url: 'http://www.sitethatwillobviouslyfail.com',
-    targets: 'h1'
-  }
+  { url: 'http://www.reddit.com' },
+  { url: 'http://www.sitethatwillobviouslyfail.com' }
 ];
 
 // trip every 10 seconds
@@ -90,13 +84,15 @@ setTimeout(function () {
 ```javascript
 var Miningcompany = require('./lib/miningcompany.js');
 
-// get headlines from frontpage of CNN
+// get headlines from frontpage of cnn
 var maps = [
   {
-    url: 'http://www.cnn.com'
+    url: 'http://www.cnn.com',
+    targets: 'h3'
   },
   {
-    url: 'http://www.sitethatwillobviouslyfail.com'
+    url: 'http://www.sitethatwillobviouslyfail.com',
+    targets: 'h1'
   }
 ];
 
