@@ -44,6 +44,7 @@
     "node-schedule": "^0.1.13",
     "node-uuid": "^1.4.3",
     "ramda": "^0.13.0",
-    "underscore.string": "^3.0.3"
+    "underscore.string": "^3.0.3",
+    "validator": "^3.39.0"
   }
 }

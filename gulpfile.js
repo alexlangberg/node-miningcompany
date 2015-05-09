@@ -9,23 +9,23 @@ var betterConsole = require('better-console');
 var jsdoc = require('gulp-jsdoc');
 var jsPaths = ['*.js', 'lib/**/*.js', 'test/**/*.js'];
 
-var test = function (cb) {
+var test = function(cb) {
   return gulp.src(['lib/**/*.js'])
     .pipe(istanbul())
-    .on('finish', function () {
+    .on('finish', function() {
       gulp.src(['test/*.js'])
         .pipe(mocha({reporter: 'spec', istanbul: true}))
         .on('end', cb);
     });
 };
 
-var lint = function () {
+var lint = function() {
   return gulp.src(jsPaths)
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'));
 };
 
-var clear = function () {
+var clear = function() {
   betterConsole.clear();
 };
 
@@ -33,31 +33,31 @@ gulp.task('default', ['lint', 'test']);
 
 gulp.task('ci', ['lint', 'test', 'coveralls']);
 
-gulp.task('watch', function () {
-  gulp.watch(jsPaths, batch(function (events, cb) {
+gulp.task('watch', function() {
+  gulp.watch(jsPaths, batch(function(events, cb) {
     clear();
     lint();
-    test(function () {
+    test(function() {
       cb();
     });
   }));
 });
 
-gulp.task('lint', function () {
+gulp.task('lint', function() {
   lint();
 });
 
-gulp.task('test', function (cb) {
-  test(function () {
+gulp.task('test', function(cb) {
+  test(function() {
     cb();
   });
 });
 
-gulp.task('coveralls', ['test'], function () {
+gulp.task('coveralls', ['test'], function() {
   return gulp.src('coverage/lcov.info').pipe(coveralls());
 });
 
-gulp.task('jsdoc', function () {
+gulp.task('jsdoc', function() {
   return gulp.src(['lib/miningcompany.js', 'README.md'])
     .pipe(jsdoc('./docs'));
 });

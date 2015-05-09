@@ -9,6 +9,7 @@ chai.use(require('sinon-chai'));
 var should = chai.should();
 var sinon = require('sinon');
 var Miningcompany = require('../lib/miningcompany.js');
+var cheerio = require('cheerio');
 var clock;
 var maps = [
   {
@@ -125,5 +126,39 @@ describe('Miningcompany', function() {
     company.shut();
     company.emit.should.have.been.calledWith('shut');
     company._scheduler.cancel.should.have.callCount(1);
+  });
+
+  it('can get the closest href(link) of a cheerio object', function(done) {
+    var company = new Miningcompany(maps);
+    var $ = cheerio.load(
+        '<div><a href="http://foo.com/bar"><h1>baz</h1></a></div>' +
+        '<div><h1><a href="http://foo.com/bar">baz</a></h1></div>' +
+        '<div><h1>baz</h1><a href="http://foo.com/bar">link</a></div>' +
+        '<div><a class="t" href="http://foo.com/bar">baz</a></div>' +
+        '<div><a class="t" href="/bar">baz</a></div>'
+    );
+    $('h1, a.t').each(function() {
+      $(this).text().should.equal('baz');
+
+      company.getClosestHref('http://foo.com', $(this))
+        .should.equal('http://foo.com/bar');
+    });
+
+    done();
+  });
+
+  it('returns null if it cannot find href', function(done) {
+    var company = new Miningcompany(maps);
+    var $ = cheerio.load(
+      '<div><h1>baz</h1></div>'
+    );
+
+    $('h1').each(function() {
+
+      // no link found, should return null
+      should.not.exist(company.getClosestHref('http://foo.com', $(this)));
+    });
+
+    done();
   });
 });

@@ -2,7 +2,7 @@
 
 var Miningcompany = require('./lib/miningcompany.js');
 
-// get headlines from frontpage of reddit
+// get headlines from frontpage of cnn
 var maps = [
   {
     url: 'http://www.cnn.com',
@@ -29,7 +29,7 @@ company.on('open', function() {
 .on('shut', function() {
   console.log('Miningcompany closed!');
 })
-.on('cart', function(cart, s) {
+.on('cart', function(cart, s, v) {
 
   // prepare your custom cart
   var finalCart = {
@@ -38,6 +38,9 @@ company.on('open', function() {
     finished: cart.finished,
     results: []
   };
+
+  // use validator to check that cart has a valid UUID
+  console.log('UUID: ' + v.isUUID(cart.uuid));
 
   // go through each result, we ignore errors in the cart
   cart.results.forEach(function(result) {
@@ -53,6 +56,9 @@ company.on('open', function() {
     // go through each hit. Note that "each" is a cheerio function!
     hits.each(function() {
 
+      // get link of each headline
+      var href = company.getClosestHref(result.map.url, $(this));
+
       // get text using cheerio
       var text = $(this).text();
 
@@ -63,14 +69,22 @@ company.on('open', function() {
         .clean()
         .value();
 
-      finalResult.headlines.push(text);
+      finalResult.headlines.push({
+        text: text,
+        href: href
+      });
     });
 
     finalCart.results.push(finalResult);
   });
 
-  // show results!
-  console.log(finalCart, finalCart.results);
+  // show cart
+  console.log(finalCart);
+
+  // show 3 first headlines of first result of cart
+  console.log(finalCart.results[0].headlines[0]);
+  console.log(finalCart.results[0].headlines[1]);
+  console.log(finalCart.results[0].headlines[2]);
 })
 .open();
 
